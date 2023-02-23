@@ -15,7 +15,7 @@ class SimpleVpcStack(Stack):
             self,
             "vpc",
             max_azs=2,
-            nat_gateways=0,
+            nat_gateways=1,
             subnet_configuration=[
                 ec2.SubnetConfiguration(
                     name="public", subnet_type=ec2.SubnetType.PUBLIC
@@ -38,3 +38,6 @@ class SimpleVpcStack(Stack):
             service=ec2.InterfaceVpcEndpointAwsService.SSM_MESSAGES
         )
         
+        vpc.add_gateway_endpoint("s3_endpoint",
+            service=ec2.GatewayVpcEndpointAwsService.S3
+        )
